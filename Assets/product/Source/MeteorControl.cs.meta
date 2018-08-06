@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: d04a30aa1af101d439e57b137fda9b86
+timeCreated: 1533588079
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - EnemyBullet: {fileID: 1343877425336600, guid: 8611c4e353eab4649a77b74327e3ca59,
+      type: 2}
+  - Explosion: {fileID: 1320780083502178, guid: bce3a8828cde73c4aac883ad3e00f1d1,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
