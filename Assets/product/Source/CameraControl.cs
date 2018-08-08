@@ -12,7 +12,6 @@ public class CameraControl : MonoBehaviour
     {
 
         difference = transform.localPosition;
-        differenceX = difference.x;
     }
 
     // Update is called once per frame
@@ -22,7 +21,7 @@ public class CameraControl : MonoBehaviour
         if (GameObject.Find("SF_Free-Fighter(Clone)") == true)
         {
             Vector3 startVec = GameObject.Find("SF_Free-Fighter(Clone)").transform.localPosition;
-            transform.localPosition = new Vector3(differenceX, startVec.y + difference.y, startVec.z + difference.z);
+            transform.localPosition = new Vector3(difference.x, difference.y + 5, startVec.z + difference.z);
         }
 
     }

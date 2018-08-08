@@ -4,7 +4,6 @@ using System.Collections;
 public class MeteorControl : MonoBehaviour
 {
 
-    public GameObject EnemyBullet;
     public GameObject Explosion;
     float Z_Speed = 0.7f;
     float intervalTime;
@@ -12,24 +11,13 @@ public class MeteorControl : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        intervalTime = 0;
+        Destroy(this.gameObject, 5);
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        transform.Translate(0, 0, -1 * Z_Speed);
-
-        Quaternion quat = Quaternion.Euler(0, 180, 0);
-
-        intervalTime += Time.deltaTime;
-        if (intervalTime >= 0.3f)
-        {
-            intervalTime = 0.0f;
-            Instantiate(EnemyBullet, new Vector3(transform.position.x, transform.position.y, transform.position.z), quat);
-        }
-
+        transform.Translate(0, 0, -5 * Z_Speed);
     }
 
     void OnTriggerEnter(Collider coll)
@@ -40,6 +28,6 @@ public class MeteorControl : MonoBehaviour
             Destroy(this.gameObject);
 
         }
-
+        
     }
 }

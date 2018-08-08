@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 54557291391056894}
   m_Layer: 0
   m_Name: Asteroid_Brown1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,6 +125,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d04a30aa1af101d439e57b137fda9b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyBullet: {fileID: 1343877425336600, guid: 8611c4e353eab4649a77b74327e3ca59,
-    type: 2}
   Explosion: {fileID: 100000, guid: 1e47e1a2302b340578c901da5181c6f1, type: 2}
