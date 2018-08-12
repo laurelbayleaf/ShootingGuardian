@@ -10,7 +10,6 @@ public class CameraControl : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
         difference = transform.localPosition;
     }
 
