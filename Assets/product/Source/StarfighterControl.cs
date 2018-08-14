@@ -14,7 +14,7 @@ public class StarfighterControl : MonoBehaviour
     float enemyintervalTime1;
     float enemyintervalTime2;
     float randomrange = 30;
-
+    double travelscore = 0;
 
     // Use this for initialization
     void Start()
@@ -41,11 +41,11 @@ public class StarfighterControl : MonoBehaviour
         }
         if (Input.GetKey("left"))
         {
-            transform.Translate(horizontal * X_Speed, 0, 0);
+            transform.Translate(horizontal * X_Speed * 0.5f, 0, 0);
         }
         if (Input.GetKey("right"))
         {
-            transform.Translate(horizontal * X_Speed, 0, 0);
+            transform.Translate(horizontal * X_Speed * 0.5f, 0, 0);
         }
         transform.Translate(0, 0, Z_Speed);
 
@@ -57,6 +57,7 @@ public class StarfighterControl : MonoBehaviour
             {
                 intervalTime = 0.0f;
                 Instantiate(Prefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+                FindObjectOfType<Score>().AddPoint(-70);
             }
         }
 
@@ -84,6 +85,13 @@ public class StarfighterControl : MonoBehaviour
             Instantiate(EnemyObject2, new Vector3(Random.Range(-randomrange, randomrange), Random.Range(-randomrange, randomrange), transform.position.z + 500), Quaternion.identity);
         }
 
+        //航行によるポイント加算
+        travelscore += Z_Speed * 0.25;
+        while (travelscore >= 1)
+        {
+            FindObjectOfType<Score>().AddPoint(1);
+            travelscore--;
+        }
 
     }
 

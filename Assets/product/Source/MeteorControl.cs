@@ -8,6 +8,7 @@ public class MeteorControl : MonoBehaviour
 
     float intervalTime;
     public bool CanRotate;
+    public int Point;
 
     // Use this for initialization
     void Start()
@@ -32,6 +33,7 @@ public class MeteorControl : MonoBehaviour
         {
             Instantiate(Explosion, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
             Destroy(this.gameObject);
+            FindObjectOfType<Score>().AddPoint(Point);
         }
         
     }
