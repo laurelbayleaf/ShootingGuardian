@@ -5,7 +5,7 @@ public class StarfighterControl : MonoBehaviour
 {
     float X_Speed = 1;
     float Y_Speed = 1;
-    public static float Z_Speed = 4;
+    public static float Z_Speed = 2;
     public GameObject Prefab;
     public GameObject EnemyObject1;
     public GameObject EnemyObject2;
@@ -22,6 +22,8 @@ public class StarfighterControl : MonoBehaviour
         intervalTime = 0;
         enemyintervalTime1 = 0;
         enemyintervalTime2 = 0;
+        BgmManager.Instance.TimeToFade = 3.0f;
+        BgmManager.Instance.CrossFadeRatio = 0.75f;
     }
 
     // Update is called once per frame
@@ -48,6 +50,7 @@ public class StarfighterControl : MonoBehaviour
             transform.Translate(horizontal * X_Speed * 0.5f, 0, 0);
         }
         transform.Translate(0, 0, Z_Speed);
+        Z_Speed += 0.0001f;
 
         //弾発射
         intervalTime += Time.deltaTime;
@@ -57,7 +60,7 @@ public class StarfighterControl : MonoBehaviour
             {
                 intervalTime = 0.0f;
                 Instantiate(Prefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
-                FindObjectOfType<Score>().AddPoint(-70);
+                FindObjectOfType<Score>().AddPoint((int)Z_Speed*-20);
             }
         }
 
@@ -72,14 +75,14 @@ public class StarfighterControl : MonoBehaviour
 
         //メテオ発生
         enemyintervalTime1 += Time.deltaTime;
-        if (enemyintervalTime1 >= 0.125f)
+        if (enemyintervalTime1 >= (0.4f / Z_Speed))
         {
             enemyintervalTime1 = 0;
             Instantiate(EnemyObject1, new Vector3(Random.Range(-randomrange, randomrange), Random.Range(-randomrange, randomrange), transform.position.z + 300), Quaternion.identity);
             Instantiate(EnemyObject1, new Vector3(Random.Range(-randomrange, randomrange), Random.Range(-randomrange, randomrange), transform.position.z + 300), Quaternion.identity);
         }
         enemyintervalTime2 += Time.deltaTime;
-        if (enemyintervalTime2 >= 0.25f)
+        if (enemyintervalTime2 >= (0.8f / Z_Speed))
         {
             enemyintervalTime2 = 0;
             Instantiate(EnemyObject2, new Vector3(Random.Range(-randomrange, randomrange), Random.Range(-randomrange, randomrange), transform.position.z + 500), Quaternion.identity);
@@ -93,6 +96,38 @@ public class StarfighterControl : MonoBehaviour
             travelscore--;
         }
 
+        //飛行速度によるＢＧＭ切り替え
+        if (Z_Speed >= 5.63)
+        {
+            BgmManager.Instance.Play("reflectable");
+        }
+        else if (Z_Speed >= 5.05)
+        {
+            BgmManager.Instance.Play("Edge of the Galaxy");
+        }
+        else if (Z_Speed >= 3.8)
+        {
+            BgmManager.Instance.Play("dear Dragon");
+        }
+        else if (Z_Speed >= 2.95)
+        {
+            BgmManager.Instance.Play("Aquilegia");
+        }
+        else if (Z_Speed >= 2)
+        {
+            BgmManager.Instance.Play("Different_Dimension");
+        }
+
+        //デバッグ
+        if (Input.GetKey(KeyCode.W))
+        {
+            Z_Speed += 0.01f;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            Z_Speed -= 0.01f;
+        }
+
     }
 
     void OnTriggerEnter(Collider coll)
@@ -101,7 +136,8 @@ public class StarfighterControl : MonoBehaviour
         {
             Instantiate(Explosion, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
             Destroy(this.gameObject);
-
+            Z_Speed = 2;
+            BgmManager.Instance.StopImmediately ();
             GameObject.Find("Main Camera").GetComponent<GameControl>().gameFlag = false;
         }
     }

@@ -18,6 +18,11 @@ public class Score : MonoBehaviour
     // PlayerPrefsで保存するためのキー
     private string highScoreKey = "highScore";
 
+
+    //飛行速度
+    public Text Z_speedText;
+    private float Z_speed;
+
     void Start()
     {
         Initialize();
@@ -30,10 +35,15 @@ public class Score : MonoBehaviour
         {
             highScore = score;
         }
-
         // スコア・ハイスコアを表示する
         scoreText.text = score.ToString();
         highScoreText.text = highScore.ToString();
+
+
+        //飛行速度の表示
+        Z_speed = (float)StarfighterControl.Z_Speed;
+        Z_speedText.text = Z_speed.ToString("f2");
+
     }
 
     // ゲーム開始前の状態に戻す

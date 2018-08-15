@@ -34,6 +34,7 @@ public class GameControl : MonoBehaviour
 
     public void GameOverButton()
     {
+        FindObjectOfType<Score>().Save();
         Application.LoadLevel("battle");
     }
 }

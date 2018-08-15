@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 19800000}
   - component: {fileID: 19900000}
   - component: {fileID: 82975733180759556}
+  - component: {fileID: 114713854580611578}
   m_Layer: 0
   m_Name: meteorboom2
   m_TagString: Untagged
@@ -122,7 +123,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -1916007991
+  randomSeed: -239668860
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3492,7 +3493,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 1675272973
+  randomSeed: -1610628646
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6989,3 +6990,14 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114713854580611578
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa21c22d1930205489b91f30004db85b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
