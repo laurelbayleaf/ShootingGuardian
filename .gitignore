@@ -22,6 +22,8 @@ ExportedObj/
 *.booproj
 *.svd
 *.pdb
+*.exe
+*.zip
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -49,3 +51,7 @@ Assets/3Skyboxes2
 Assets/Asteroids
 Assets/SF_Fighter
 Assets/SimpleParticlePack
+
+#Builds
+GALAXY TRIPPER_Data/
+UnityPlayer.dll

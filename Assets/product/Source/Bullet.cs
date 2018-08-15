@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
 
     }
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         float playerspeed = StarfighterControl.Z_Speed;
         transform.Translate(0, 0, bulletSpeed + playerspeed);

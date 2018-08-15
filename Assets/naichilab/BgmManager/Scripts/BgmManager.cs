@@ -227,15 +227,26 @@ public class BgmManager : MonoBehaviour
 				this.CurrentAudioSource = null;
 		}
 
-		/// <summary>
-		/// BGMをフェードインさせながら再生を開始します。
-		/// </summary>
-		/// <param name="bgm">AudioSource</param>
-		/// <param name="timeToFade">フェードインにかかる時間</param>
-		/// <param name="fromVolume">初期音量</param>
-		/// <param name="toVolume">フェードイン完了時の音量</param>
-		/// <param name="delay">フェードイン開始までの待ち時間</param>
-		private IEnumerator fadeIn (AudioSource bgm, float timeToFade, float fromVolume, float toVolume, float delay)
+        public void Pause()
+        {
+                this.CurrentAudioSource.Pause();
+        }
+
+        public void UnPause()
+        {
+                this.CurrentAudioSource.UnPause();
+        }
+
+
+    /// <summary>
+    /// BGMをフェードインさせながら再生を開始します。
+    /// </summary>
+    /// <param name="bgm">AudioSource</param>
+    /// <param name="timeToFade">フェードインにかかる時間</param>
+    /// <param name="fromVolume">初期音量</param>
+    /// <param name="toVolume">フェードイン完了時の音量</param>
+    /// <param name="delay">フェードイン開始までの待ち時間</param>
+    private IEnumerator fadeIn (AudioSource bgm, float timeToFade, float fromVolume, float toVolume, float delay)
 		{
 				if (delay > 0) {
 						yield return new WaitForSeconds (delay);

@@ -72,4 +72,10 @@ public class Score : MonoBehaviour
         // ゲーム開始前の状態に戻す
         Initialize();
     }
+
+    public void SaveDelete()
+    {
+        PlayerPrefs.SetInt(highScoreKey, 0);
+        PlayerPrefs.Save();
+    }
 }

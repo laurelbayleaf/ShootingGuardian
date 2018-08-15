@@ -24,6 +24,10 @@ public class CameraControl : MonoBehaviour
 
             transform.localPosition = new Vector3(difference.x, difference.y + 5, startVec.z + difference.z);
         }
+        if (Input.GetKey(KeyCode.Delete))
+        {
+            FindObjectOfType<Score>().SaveDelete();
+        }
 
     }
 }

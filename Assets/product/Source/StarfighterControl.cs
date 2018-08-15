@@ -15,7 +15,10 @@ public class StarfighterControl : MonoBehaviour
     float enemyintervalTime2;
     float randomrange = 30;
     double travelscore = 0;
-
+    bool Horizontalmove = false;
+    bool Verticalmove = false;
+    float vertical;
+    float horizontal;
     // Use this for initialization
     void Start()
     {
@@ -29,67 +32,44 @@ public class StarfighterControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float vertical = Input.GetAxis("Vertical");
-        float horizontal = Input.GetAxis("Horizontal");
+        vertical = Input.GetAxis("Vertical");
+        horizontal = Input.GetAxis("Horizontal");
 
         //移動
-        if (Input.GetKey("up"))
-        {
-            transform.Translate(0, vertical * Y_Speed * 0.25f, 0);
-        }
-        if (Input.GetKey("down"))
-        {
-            transform.Translate(0, vertical * Y_Speed * 0.25f, 0);
-        }
-        if (Input.GetKey("left"))
-        {
-            transform.Translate(horizontal * X_Speed * 0.5f, 0, 0);
-        }
-        if (Input.GetKey("right"))
-        {
-            transform.Translate(horizontal * X_Speed * 0.5f, 0, 0);
-        }
-        transform.Translate(0, 0, Z_Speed);
-        Z_Speed += 0.0001f;
-
-        //弾発射
-        intervalTime += Time.deltaTime;
-        if (Input.GetKey("space"))
-        {
-            if (intervalTime >= 1.0f)
-            {
-                intervalTime = 0.0f;
-                Instantiate(Prefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
-                FindObjectOfType<Score>().AddPoint((int)Z_Speed*-20);
-            }
-        }
+        if (Input.GetKey("up")) Verticalmove = true;
+        if (Input.GetKey("down"))   Verticalmove = true;
+        if (Input.GetKey("left"))   Horizontalmove = true;
+        if (Input.GetKey("right"))  Horizontalmove = true;
 
         // プレイヤーの座標を取得
         Vector3 pos = transform.position;
 
         pos.x = Mathf.Clamp(transform.position.x, -10, 10);
         pos.y = Mathf.Clamp(transform.position.y, -1, 10);
-
-
         transform.position = pos;
 
+        //弾発射
+        if (Input.GetKey("space") && intervalTime >= 1.0f)
+        {
+            intervalTime = 0.0f;
+            Instantiate(Prefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+            FindObjectOfType<Score>().AddPoint((int)Z_Speed * -20);
+        }
+
         //メテオ発生
-        enemyintervalTime1 += Time.deltaTime;
         if (enemyintervalTime1 >= (0.4f / Z_Speed))
         {
             enemyintervalTime1 = 0;
             Instantiate(EnemyObject1, new Vector3(Random.Range(-randomrange, randomrange), Random.Range(-randomrange, randomrange), transform.position.z + 300), Quaternion.identity);
             Instantiate(EnemyObject1, new Vector3(Random.Range(-randomrange, randomrange), Random.Range(-randomrange, randomrange), transform.position.z + 300), Quaternion.identity);
         }
-        enemyintervalTime2 += Time.deltaTime;
         if (enemyintervalTime2 >= (0.8f / Z_Speed))
         {
             enemyintervalTime2 = 0;
             Instantiate(EnemyObject2, new Vector3(Random.Range(-randomrange, randomrange), Random.Range(-randomrange, randomrange), transform.position.z + 500), Quaternion.identity);
         }
 
-        //航行によるポイント加算
-        travelscore += Z_Speed * 0.25;
+        //点数加算
         while (travelscore >= 1)
         {
             FindObjectOfType<Score>().AddPoint(1);
@@ -97,19 +77,19 @@ public class StarfighterControl : MonoBehaviour
         }
 
         //飛行速度によるＢＧＭ切り替え
-        if (Z_Speed >= 5.63)
+        if (Z_Speed >= 5.4)
         {
             BgmManager.Instance.Play("reflectable");
         }
-        else if (Z_Speed >= 5.05)
+        else if (Z_Speed >= 4.8)
         {
             BgmManager.Instance.Play("Edge of the Galaxy");
         }
-        else if (Z_Speed >= 3.8)
+        else if (Z_Speed >= 3.6)
         {
             BgmManager.Instance.Play("dear Dragon");
         }
-        else if (Z_Speed >= 2.95)
+        else if (Z_Speed >= 2.8)
         {
             BgmManager.Instance.Play("Aquilegia");
         }
@@ -130,6 +110,27 @@ public class StarfighterControl : MonoBehaviour
 
     }
 
+    private void FixedUpdate()
+    {
+        //移動
+        if (Verticalmove == true) transform.Translate(0, vertical * Y_Speed * 0.25f, 0);
+        if (Horizontalmove == true) transform.Translate(horizontal * X_Speed * 0.5f, 0, 0);
+        transform.Translate(0, 0, Z_Speed);
+        Z_Speed += 0.0001f;
+
+        //弾装填
+        intervalTime += Time.deltaTime;
+
+
+        //メテオ発生
+        enemyintervalTime1 += Time.deltaTime;
+        enemyintervalTime2 += Time.deltaTime;
+
+        //航行によるポイント加算
+        travelscore += Z_Speed * 0.2;
+
+    }
+
     void OnTriggerEnter(Collider coll)
     {
         if (coll.gameObject.tag == "Enemy")
@@ -139,6 +140,8 @@ public class StarfighterControl : MonoBehaviour
             Z_Speed = 2;
             BgmManager.Instance.StopImmediately ();
             GameObject.Find("Main Camera").GetComponent<GameControl>().gameFlag = false;
+            GameObject.Find("Main Camera").GetComponent<GameControl>().playingFlag = false;
+
         }
     }
 }
