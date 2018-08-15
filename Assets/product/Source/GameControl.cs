@@ -7,6 +7,8 @@ public class GameControl : MonoBehaviour
     public GameObject GameStartBtn;
     public GameObject starFighterPrefab;
     public GameObject GameOverSet;
+    public GameObject GameOverSet2;
+
     public bool gameFlag;
 
     // Use this for initialization
@@ -22,6 +24,7 @@ public class GameControl : MonoBehaviour
         if (gameFlag == false)
         {
             GameOverSet.SetActive(true);
+            GameOverSet2.SetActive(true);
         }
     }
 
@@ -37,4 +40,10 @@ public class GameControl : MonoBehaviour
         FindObjectOfType<Score>().Save();
         Application.LoadLevel("battle");
     }
+
+    public void GameEndButton()
+    {
+        Application.Quit();
+    }
+
 }
