@@ -20,7 +20,7 @@ public class CameraControl : MonoBehaviour
         if (GameObject.Find("SF_Free-Fighter(Clone)") == true)
         {
             Vector3 startVec = GameObject.Find("SF_Free-Fighter(Clone)").transform.localPosition;
-            difference.z = StarfighterControl.Z_Speed - 10;
+            difference.z = StarfighterControl.Z_Speed - 12;
 
             transform.localPosition = new Vector3(difference.x, difference.y + 5, startVec.z + difference.z);
         }

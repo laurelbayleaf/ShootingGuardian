@@ -77,35 +77,35 @@ public class StarfighterControl : MonoBehaviour
         }
 
         //飛行速度によるＢＧＭ切り替え
-        if (Z_Speed >= 5.4)
+        if (Z_Speed >= 5.03)
         {
             BgmManager.Instance.Play("reflectable");
         }
-        else if (Z_Speed >= 4.8)
+        else if (Z_Speed >= 4.55)
         {
             BgmManager.Instance.Play("Edge of the Galaxy");
         }
-        else if (Z_Speed >= 3.6)
+        else if (Z_Speed >= 3.5)
         {
             BgmManager.Instance.Play("dear Dragon");
         }
-        else if (Z_Speed >= 2.8)
+        else if (Z_Speed >= 2.75)
         {
             BgmManager.Instance.Play("Aquilegia");
         }
-        else if (Z_Speed >= 2)
+        else
         {
             BgmManager.Instance.Play("Different_Dimension");
         }
 
         //デバッグ
-        //if (Input.GetKey(KeyCode.W))
-        //{
-        //    Z_Speed += 0.001f;
-        //}
+        if (Input.GetKey(KeyCode.W))
+        {
+            Z_Speed += 0.005f;
+        }
         if (Input.GetKey(KeyCode.S))
         {
-            Z_Speed -= 0.001f;
+            Z_Speed -= 0.005f;
         }
 
     }
