@@ -102,14 +102,14 @@ public class StarfighterControl : MonoBehaviour
         }
 
         //デバッグ
-        if (Input.GetKey(KeyCode.W))
-        {
-            Z_Speed += 0.005f;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            Z_Speed -= 0.005f;
-        }
+        //if (Input.GetKey(KeyCode.W))
+        //{
+        //    Z_Speed += 0.005f;
+        //}
+        //if (Input.GetKey(KeyCode.S))
+        //{
+        //    Z_Speed -= 0.005f;
+        //}
 
     }
 
