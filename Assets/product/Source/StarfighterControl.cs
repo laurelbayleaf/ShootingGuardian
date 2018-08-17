@@ -5,7 +5,7 @@ public class StarfighterControl : MonoBehaviour
 {
     float X_Speed = 1;
     float Y_Speed = 1;
-    public static float Z_Speed = 2;
+    public static float Z_Speed;
     public GameObject Prefab;
     public GameObject EnemyObject1;
     public GameObject EnemyObject2;
@@ -14,7 +14,9 @@ public class StarfighterControl : MonoBehaviour
     float enemyintervalTime1;
     float enemyintervalTime2;
     float randomrange = 30;
-    double travelscore = 0;
+    double travelscore;
+    double travelrate = 0.05;
+    public static int ammocost;
     bool Horizontalmove = false;
     bool Verticalmove = false;
     float vertical;
@@ -22,11 +24,13 @@ public class StarfighterControl : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        travelscore = 0;
         intervalTime = 0;
         enemyintervalTime1 = 0;
         enemyintervalTime2 = 0;
         BgmManager.Instance.TimeToFade = 3.0f;
         BgmManager.Instance.CrossFadeRatio = 0.75f;
+        Z_Speed = 2;
     }
 
     // Update is called once per frame
@@ -53,7 +57,8 @@ public class StarfighterControl : MonoBehaviour
         {
             intervalTime = 0.0f;
             Instantiate(Prefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
-            FindObjectOfType<Score>().AddPoint((int)Z_Speed * -20);
+            ammocost = (int)(Z_Speed * travelrate * -70);
+            FindObjectOfType<Score>().AddPoint(ammocost);
         }
 
         //メテオ発生
@@ -70,11 +75,9 @@ public class StarfighterControl : MonoBehaviour
         }
 
         //点数加算
-        while (travelscore >= 1)
-        {
-            FindObjectOfType<Score>().AddPoint(1);
-            travelscore--;
-        }
+
+        FindObjectOfType<Score>().AddPoint((int)travelscore);
+        travelscore -= (int)travelscore;
 
         //飛行速度によるＢＧＭ切り替え
         if (Z_Speed >= 5.03)
@@ -127,7 +130,7 @@ public class StarfighterControl : MonoBehaviour
         enemyintervalTime2 += Time.deltaTime;
 
         //航行によるポイント加算
-        travelscore += Z_Speed * 0.2;
+        travelscore += Z_Speed * travelrate;
 
     }
 
@@ -137,7 +140,6 @@ public class StarfighterControl : MonoBehaviour
         {
             Instantiate(Explosion, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
             Destroy(this.gameObject);
-            Z_Speed = 2;
             BgmManager.Instance.StopImmediately ();
             GameObject.Find("Main Camera").GetComponent<GameControl>().gameFlag = false;
             GameObject.Find("Main Camera").GetComponent<GameControl>().playingFlag = false;

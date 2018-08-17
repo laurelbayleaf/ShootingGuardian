@@ -6,20 +6,15 @@ public class MeteorControl : MonoBehaviour
 
     public GameObject Explosion;
 
-    float intervalTime;
-    public bool CanRotate;
-    public int Point;
+    public int Pointrate;
+    int Point;
 
     // Use this for initialization
     void Start()
     {
         Destroy(this.gameObject, 10);
-        if (CanRotate==true)
-        {
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         rigidbody.angularVelocity = new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), Random.Range(-5, 5));
-        }
-
     }
 
     // Update is called once per frame
@@ -33,7 +28,8 @@ public class MeteorControl : MonoBehaviour
         {
             Instantiate(Explosion, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
             Destroy(this.gameObject);
-            FindObjectOfType<Score>().AddPoint(Point);
+            Point = Pointrate * StarfighterControl.ammocost;
+            FindObjectOfType<Score>().AddPoint(Pointrate);
         }
         
     }

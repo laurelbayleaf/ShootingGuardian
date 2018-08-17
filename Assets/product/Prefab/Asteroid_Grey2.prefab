@@ -127,4 +127,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Explosion: {fileID: 100000, guid: d33904b3aaa63498c9be5ef9d2e80a6b, type: 2}
   CanRotate: 1
-  Point: 100
+  Pointrate: 25

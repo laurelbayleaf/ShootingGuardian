@@ -9,11 +9,17 @@ public class Score : MonoBehaviour
     // ハイスコアを表示する
     public Text highScoreText;
 
+    //スコアボード調整
+    public GameObject score;
+    public GameObject travel;
+
+
     // スコア
-    private int score;
+    private int scores;
+
 
     // ハイスコア
-    private int highScore;
+    private int highScores;
 
     // PlayerPrefsで保存するためのキー
     private string highScoreKey = "highScore";
@@ -31,13 +37,21 @@ public class Score : MonoBehaviour
     void Update()
     {
         // スコアがハイスコアより大きければ
-        if (highScore < score)
+        if (highScores < scores)
         {
-            highScore = score;
+            highScores = scores;
         }
         // スコア・ハイスコアを表示する
-        scoreText.text = score.ToString();
-        highScoreText.text = highScore.ToString();
+        if (GameObject.Find("Main Camera").GetComponent<GameControl>().gameFlag == false || GameObject.Find("Main Camera").GetComponent<GameControl>().playingFlag == true)
+        {
+            //　ポーズUIのアクティブ、非アクティブを切り替え
+            score.SetActive(true);
+            travel.SetActive(true);
+
+        }
+
+        scoreText.text = scores.ToString();
+        highScoreText.text = highScores.ToString();
 
 
         //飛行速度の表示
@@ -50,23 +64,23 @@ public class Score : MonoBehaviour
     private void Initialize()
     {
         // スコアを0に戻す
-        score = 0;
+        scores = 0;
 
         // ハイスコアを取得する。保存されてなければ0を取得する。
-        highScore = PlayerPrefs.GetInt(highScoreKey, 0);
+        highScores = PlayerPrefs.GetInt(highScoreKey, 0);
     }
 
     // ポイントの追加
-    public void AddPoint(int point)
+    public void AddPoint(int Point)
     {
-        score = score + point;
+        scores = scores + Point;
     }
 
     // ハイスコアの保存
     public void Save()
     {
         // ハイスコアを保存する
-        PlayerPrefs.SetInt(highScoreKey, highScore);
+        PlayerPrefs.SetInt(highScoreKey, highScores);
         PlayerPrefs.Save();
 
         // ゲーム開始前の状態に戻す
