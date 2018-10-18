@@ -27,7 +27,21 @@ public class GameControl : MonoBehaviour
             GameOverSet.SetActive(true);
             GameOverSet2.SetActive(true);
         }
-        
+
+        if (gameFlag == true&& playingFlag == false&& Input.GetKey("space"))
+        {
+            GameStartButton();
+        }
+
+        if (gameFlag == false && Input.GetKeyDown("r"))
+        {
+            GameOverButton();
+        }
+
+        if (Input.GetKeyDown("escape"))
+        {
+            Application.Quit();
+        }
     }
 
     public void GameStartButton()
@@ -43,11 +57,6 @@ public class GameControl : MonoBehaviour
 
         FindObjectOfType<Score>().Save();
         Application.LoadLevel("battle");
-    }
-
-    public void GameEndButton()
-    {
-        Application.Quit();
     }
 
 }
