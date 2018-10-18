@@ -7,15 +7,10 @@ public class StarfighterControl : MonoBehaviour
     float Y_Speed = 1;
     public static float Z_Speed;
     public GameObject Prefab;
-    public GameObject EnemyObject1;
-    public GameObject EnemyObject2;
     public GameObject Explosion;
     float intervalTime;
-    float enemyintervalTime1;
-    float enemyintervalTime2;
-    float randomrange = 30;
     double travelscore;
-    double travelrate = 0.05;
+    double travelrate = 0.0125;
     public static int ammocost;
     bool Horizontalmove = false;
     bool Verticalmove = false;
@@ -26,8 +21,6 @@ public class StarfighterControl : MonoBehaviour
     {
         travelscore = 0;
         intervalTime = 0;
-        enemyintervalTime1 = 0;
-        enemyintervalTime2 = 0;
         BgmManager.Instance.TimeToFade = 3.0f;
         BgmManager.Instance.CrossFadeRatio = 0.75f;
         Z_Speed = 2;
@@ -40,7 +33,7 @@ public class StarfighterControl : MonoBehaviour
         horizontal = Input.GetAxis("Horizontal");
 
         //移動
-        if (Input.GetKey("up")) Verticalmove = true;
+        if (Input.GetKey("up"))     Verticalmove = true;
         if (Input.GetKey("down"))   Verticalmove = true;
         if (Input.GetKey("left"))   Horizontalmove = true;
         if (Input.GetKey("right"))  Horizontalmove = true;
@@ -53,26 +46,14 @@ public class StarfighterControl : MonoBehaviour
         transform.position = pos;
 
         //弾発射
-        if (Input.GetKey("space") && intervalTime >= 1.0f)
+        ammocost = (int)(Z_Speed * Z_Speed * travelrate * 80);
+        if (Input.GetKey("space") && intervalTime >= 1.0f && FindObjectOfType<Score>().HasPoint(-(ammocost)))
         {
             intervalTime = 0.0f;
             Instantiate(Prefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
-            ammocost = (int)(Z_Speed * travelrate * -70);
-            FindObjectOfType<Score>().AddPoint(ammocost);
+            FindObjectOfType<Score>().AddPoint(-(ammocost));
         }
 
-        //メテオ発生
-        if (enemyintervalTime1 >= (0.4f / Z_Speed))
-        {
-            enemyintervalTime1 = 0;
-            Instantiate(EnemyObject1, new Vector3(Random.Range(-randomrange, randomrange), Random.Range(-randomrange, randomrange), transform.position.z + 300), Quaternion.identity);
-            Instantiate(EnemyObject1, new Vector3(Random.Range(-randomrange, randomrange), Random.Range(-randomrange, randomrange), transform.position.z + 300), Quaternion.identity);
-        }
-        if (enemyintervalTime2 >= (0.8f / Z_Speed))
-        {
-            enemyintervalTime2 = 0;
-            Instantiate(EnemyObject2, new Vector3(Random.Range(-randomrange, randomrange), Random.Range(-randomrange, randomrange), transform.position.z + 500), Quaternion.identity);
-        }
 
         //点数加算
 
@@ -102,14 +83,14 @@ public class StarfighterControl : MonoBehaviour
         }
 
         //デバッグ
-        //if (Input.GetKey(KeyCode.W))
-        //{
-        //    Z_Speed += 0.005f;
-        //}
-        //if (Input.GetKey(KeyCode.S))
-        //{
-        //    Z_Speed -= 0.005f;
-        //}
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.O))
+        {
+            Z_Speed += 0.005f;
+        }
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.O))
+        {
+            Z_Speed -= 0.005f;
+        }
 
     }
 
@@ -124,13 +105,8 @@ public class StarfighterControl : MonoBehaviour
         //弾装填
         intervalTime += Time.deltaTime;
 
-
-        //メテオ発生
-        enemyintervalTime1 += Time.deltaTime;
-        enemyintervalTime2 += Time.deltaTime;
-
         //航行によるポイント加算
-        travelscore += Z_Speed * travelrate;
+        travelscore += Z_Speed * Z_Speed * travelrate;
 
     }
 

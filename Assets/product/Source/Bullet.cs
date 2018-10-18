@@ -4,6 +4,7 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour
 {
+    public GameObject Explosion;
 
     float bulletSpeed = 2;
 
@@ -24,6 +25,7 @@ public class Bullet : MonoBehaviour
     {
         if (coll.gameObject.tag == "Enemy")
         {
+            Instantiate(Explosion, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
             Destroy(this.gameObject);
         }
     }

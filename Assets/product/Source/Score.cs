@@ -76,6 +76,13 @@ public class Score : MonoBehaviour
         scores = scores + Point;
     }
 
+    //正のポイントになるかどうか
+    public bool HasPoint(int Point)
+    {
+        return (scores + Point >= 0) ? true : false;
+    }
+
+
     // ハイスコアの保存
     public void Save()
     {
