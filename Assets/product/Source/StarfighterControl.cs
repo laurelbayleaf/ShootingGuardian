@@ -9,6 +9,7 @@ public class StarfighterControl : MonoBehaviour
     public GameObject Prefab;
     public GameObject Explosion;
     float intervalTime;
+    float firerate;
     double travelscore;
     double travelrate = 0.0125;
     public static int ammocost;
@@ -16,14 +17,17 @@ public class StarfighterControl : MonoBehaviour
     bool Verticalmove = false;
     float vertical;
     float horizontal;
+    public static bool OC;
     // Use this for initialization
     void Start()
     {
+        OC = false;
         travelscore = 0;
         intervalTime = 0;
         BgmManager.Instance.TimeToFade = 3.0f;
         BgmManager.Instance.CrossFadeRatio = 0.75f;
         Z_Speed = 2;
+        firerate = 1.0f;
     }
 
     // Update is called once per frame
@@ -33,10 +37,10 @@ public class StarfighterControl : MonoBehaviour
         horizontal = Input.GetAxis("Horizontal");
 
         //移動
-        if (Input.GetKey("up"))     Verticalmove = true;
-        if (Input.GetKey("down"))   Verticalmove = true;
-        if (Input.GetKey("left"))   Horizontalmove = true;
-        if (Input.GetKey("right"))  Horizontalmove = true;
+        if (Input.GetKey("up")) Verticalmove = true;
+        if (Input.GetKey("down")) Verticalmove = true;
+        if (Input.GetKey("left")) Horizontalmove = true;
+        if (Input.GetKey("right")) Horizontalmove = true;
 
         // プレイヤーの座標を取得
         Vector3 pos = transform.position;
@@ -47,12 +51,20 @@ public class StarfighterControl : MonoBehaviour
 
         //弾発射
         ammocost = (int)(Z_Speed * Z_Speed * travelrate * 80);
-        if (Input.GetKey("space") && intervalTime >= 1.0f && FindObjectOfType<Score>().HasPoint(-(ammocost)))
+        firerate = OC ? 0.5f : 1.0f;
+        if (Input.GetKey("space") && intervalTime >= firerate && FindObjectOfType<Score>().HasPoint(-(ammocost)))
         {
             intervalTime = 0.0f;
             Instantiate(Prefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
             FindObjectOfType<Score>().AddPoint(-(ammocost));
         }
+        if (Input.GetKeyDown(KeyCode.C) && !OC && FindObjectOfType<Score>().HasPoint(-500))
+        {
+            OC = true;
+            Score.OCtime = 10;
+            FindObjectOfType<Score>().AddPoint(-500);
+        }
+        if (OC) FindObjectOfType<Score>().OCmode();
 
 
         //点数加算
@@ -116,7 +128,7 @@ public class StarfighterControl : MonoBehaviour
         {
             Instantiate(Explosion, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
             Destroy(this.gameObject);
-            BgmManager.Instance.StopImmediately ();
+            BgmManager.Instance.StopImmediately();
             GameObject.Find("Main Camera").GetComponent<GameControl>().gameFlag = false;
             GameObject.Find("Main Camera").GetComponent<GameControl>().playingFlag = false;
 

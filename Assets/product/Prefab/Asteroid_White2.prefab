@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Explosion: {fileID: 100000, guid: 4813da6bfa5e94ac682f6d270a12d4b5, type: 2}
-  Pointrate: 10
+  Pointrate: 100
   HP: 3
   rotate: 3
   movevelocity: 0

@@ -24,7 +24,12 @@ GameObject:
   - component: {fileID: 54967752563068960}
   - component: {fileID: 64917215296893186}
   - component: {fileID: 114321285647791874}
-  - component: {fileID: 114113631127081306}
+  - component: {fileID: 114033871005038244}
+  - component: {fileID: 114494014957856102}
+  - component: {fileID: 114195793493079676}
+  - component: {fileID: 114421290409702564}
+  - component: {fileID: 114494720957064062}
+  - component: {fileID: 114984623480303394}
   m_Layer: 0
   m_Name: SF_Free-Fighter
   m_TagString: Untagged
@@ -225,7 +230,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114113631127081306
+--- !u!114 &114033871005038244
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -233,15 +238,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 1381803862223676}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f961091dd9b7e9e42a9d123dcc8d57ca, type: 3}
+  m_Script: {fileID: 11500000, guid: d58eb50232c174540ad7078a5eea3e99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Meteor1: {fileID: 1275286016831604, guid: bbd3d877b276dc44ca2189ef09e74e27, type: 2}
-  Meteor2: {fileID: 1847119689929052, guid: eaa664184293fdd4fb5e424cb9837096, type: 2}
-  Meteor3: {fileID: 1646270288833726, guid: 884fb0bfc3355fe4fa638812e67fccad, type: 2}
-  Meteor4: {fileID: 1211174942701246, guid: 86757caece1e95b48ac8ca13c01365e3, type: 2}
-  Meteor5: {fileID: 1582679294819016, guid: 885d1edf8017a9841a306ad2ee8f1906, type: 2}
-  Meteor6: {fileID: 1920111174420984, guid: dec5d1d0d9608194b905d649edf36d50, type: 2}
+  Meteor: {fileID: 1275286016831604, guid: bbd3d877b276dc44ca2189ef09e74e27, type: 2}
+  Interval: 0.4
+  Multipul: 2
+  Level: 0
+--- !u!114 &114195793493079676
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1381803862223676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d58eb50232c174540ad7078a5eea3e99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Meteor: {fileID: 1646270288833726, guid: 884fb0bfc3355fe4fa638812e67fccad, type: 2}
+  Interval: 10
+  Multipul: 1
+  Level: 2.2
 --- !u!114 &114321285647791874
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -255,3 +273,63 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab: {fileID: 1929723347487932, guid: 9de60242c20592a4d93b2ac39fdcd897, type: 2}
   Explosion: {fileID: 100004, guid: 9b26e1efdb8fd4d53b35c3c6b7f50cf5, type: 2}
+--- !u!114 &114421290409702564
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1381803862223676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d58eb50232c174540ad7078a5eea3e99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Meteor: {fileID: 1211174942701246, guid: 86757caece1e95b48ac8ca13c01365e3, type: 2}
+  Interval: 0.4
+  Multipul: 1
+  Level: 2.5
+--- !u!114 &114494014957856102
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1381803862223676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d58eb50232c174540ad7078a5eea3e99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Meteor: {fileID: 1847119689929052, guid: eaa664184293fdd4fb5e424cb9837096, type: 2}
+  Interval: 0.8
+  Multipul: 1
+  Level: 0
+--- !u!114 &114494720957064062
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1381803862223676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d58eb50232c174540ad7078a5eea3e99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Meteor: {fileID: 1920111174420984, guid: dec5d1d0d9608194b905d649edf36d50, type: 2}
+  Interval: 5
+  Multipul: 1
+  Level: 2.7
+--- !u!114 &114984623480303394
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1381803862223676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d58eb50232c174540ad7078a5eea3e99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Meteor: {fileID: 1582679294819016, guid: 885d1edf8017a9841a306ad2ee8f1906, type: 2}
+  Interval: 10
+  Multipul: 1
+  Level: 3

@@ -13,7 +13,6 @@ public class Score : MonoBehaviour
     public GameObject score;
     public GameObject travel;
 
-
     // スコア
     private int scores;
 
@@ -28,6 +27,11 @@ public class Score : MonoBehaviour
     //飛行速度
     public Text Z_speedText;
     private float Z_speed;
+
+    //オーバークロック
+    public GameObject OCBoard;
+    public Text OCTimer;
+    public static float OCtime;
 
     void Start()
     {
@@ -50,6 +54,7 @@ public class Score : MonoBehaviour
 
         }
 
+        //スコア数値を文字に置き換え
         scoreText.text = scores.ToString();
         highScoreText.text = highScores.ToString();
 
@@ -68,6 +73,10 @@ public class Score : MonoBehaviour
 
         // ハイスコアを取得する。保存されてなければ0を取得する。
         highScores = PlayerPrefs.GetInt(highScoreKey, 0);
+
+        //OC初期化
+        OCtime = 0;
+        OCBoard.SetActive(false);
     }
 
     // ポイントの追加
@@ -98,5 +107,18 @@ public class Score : MonoBehaviour
     {
         PlayerPrefs.SetInt(highScoreKey, 0);
         PlayerPrefs.Save();
+    }
+
+    public void OCmode()
+    {
+        OCBoard.SetActive(true);
+        OCTimer.text = OCtime.ToString("f1");
+        if (OCtime <= 0)
+        {
+            StarfighterControl.OC = false;
+            OCBoard.SetActive(false);
+        }
+        else OCtime -= Time.deltaTime;
+
     }
 }
